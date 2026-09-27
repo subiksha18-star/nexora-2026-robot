@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Baby Robot Event</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+    background: linear-gradient(
+        135deg,
+        #ffd6f6,
+        #c9f4ff,
+        #fff0b8,
+        #d9ffd6
+    );
+    background-size: 400% 400%;
+    animation: backgroundMove 10s ease infinite;
+}
+
+@keyframes backgroundMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.title {
+    text-align: center;
+    color: #7a3d8e;
+    margin: 25px 0 5px;
+    font-size: 40px;
+    text-shadow: 2px 2px white;
+}
+
+.subtitle {
+    text-align: center;
+    color: #725a80;
+}
+
+.stage {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    height: 430px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 35px;
+    background: rgba(255,255,255,0.35);
+    border: 3px solid white;
+    box-shadow: 0 15px 40px rgba(100,70,120,0.2);
+}
+
+/* Decorations */
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    animation: floatBubble 4s infinite ease-in-out;
+}
+
+.b1 {
+    width: 60px;
+    height: 60px;
+    left: 8%;
+    top: 15%;
+}
+
+.b2 {
+    width: 30px;
+    height: 30px;
+    left: 20%;
+    bottom: 15%;
+}
+
+.b3 {
+    width: 70px;
+    height: 70px;
+    right: 8%;
+    top: 20%;
+}
+
+.b4 {
+    width: 35px;
+    height: 35px;
+    right: 25%;
+    bottom: 15%;
+}
+
+@keyframes floatBubble {
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.sparkle {
+    position: absolute;
+    color: white;
+    font-size: 28px;
+    animation: sparkleMove 2s infinite;
+}
+
+.s1 {
+    left: 15%;
+    top: 40%;
+}
+
+.s2 {
+    right: 15%;
+    top: 50%;
+}
+
+.s3 {
+    left: 45%;
+    top: 10%;
+}
+
+@keyframes sparkleMove {
+    50% {
+        transform: scale(1.3) rotate(20deg);
+        opacity: 1;
+    }
+}
+
+/* Center mark */
+
+.center-mark {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 35px;
+    border-radius: 50%;
+    background: rgba(120,80,150,0.2);
+}
+
+/* ROBOT */
+
+.robot {
+    position: absolute;
+    left: 50%;
+    bottom: 58px;
+    width: 190px;
+    height: 270px;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.robot.run {
+    animation: robotRun 2.7s ease-out forwards;
+}
+
+@keyframes robotRun {
+
+    0% {
+        transform: translateX(calc(-50% - 43vw));
+    }
+
+    20% {
+        transform:
+            translateX(calc(-50% - 35vw))
+            translateY(-8px);
+    }
+
+    40% {
+        transform:
+            translateX(calc(-50% - 23vw));
+    }
+
+    60% {
+        transform:
+            translateX(calc(-50% - 12vw))
+            translateY(-8px);
+    }
+
+    80% {
+        transform:
+            translateX(calc(-50% - 5vw));
+    }
+
+    100% {
+        transform:
+            translateX(-50%)
+            translateY(0);
+    }
+}
+
+/* Antenna */
+
+.antenna {
+    position: absolute;
+    left: 50%;
+    top: -20px;
+    width: 6px;
+    height: 35px;
+    background: #7b62c8;
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+
+.antenna::before {
+    content: "💗";
+    position: absolute;
+    top: -27px;
+    left: -11px;
+    font-size: 25px;
+}
+
+/* Ears */
+
+.ear {
+    position: absolute;
+    top: 45px;
+    width: 35px;
+    height: 65px;
+    background: #ffb6df;
+    border: 4px solid #b55d9d;
+    border-radius: 50%;
+}
+
+.ear.left {
+    left: -17px;
+}
+
+.ear.right {
+    right: -17px;
+}
+
+/* Head */
+
+.head {
+    position: absolute;
+    top: 25px;
+    left: 15px;
+    width: 160px;
+    height: 125px;
+    border-radius: 45px;
+    background: linear-gradient(145deg,#ffffff,#e9e0ff);
+    border: 5px solid #8665c7;
+}
+
+/* Eyes */
+
+.eye {
+    position: absolute;
+    top: 43px;
+    width: 22px;
+    height: 30px;
+    background: #45335d;
+    border-radius: 50%;
+}
+
+.eye::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 7px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+}
+
+.eye.left {
+    left: 37px;
+}
+
+.eye.right {
+    right: 37px;
+}
+
+/* Blush */
+
+.blush {
+    position: absolute;
+    top: 76px;
+    width: 22px;
+    height: 11px;
+    background: #ffb5ce;
+    border-radius: 50%;
+}
+
+.blush.left {
+    left: 17px;
+}
+
+.blush.right {
+    right: 17px;
+}
+
+/* Mouth */
+
+.mouth {
+    position: absolute;
+    left: 50%;
+    top: 76px;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 17px;
+    border-bottom: 5px solid #9d4c82;
+    border-radius: 0 0 50% 50%;
+}
+
+/* Body */
+
+.body {
+    position: absolute;
+    left: 27px;
+    top: 145px;
+    width: 136px;
+    height: 100px;
+    border-radius: 35px;
+    background: linear-gradient(145deg,#ff9fd7,#ffcef0);
+    border: 5px solid #a84d92;
+}
+
+.heart {
+    position: absolute;
+    left: 50%;
+    top: 22px;
+    transform: translateX(-50%);
+    font-size: 38px;
+}
+
+/* Arms */
+
+.arm {
+    position: absolute;
+    top: 165px;
+    width: 32px;
+    height: 75px;
+    border-radius: 25px;
+    background: #ffd0ed;
+    border: 5px solid #a84d92;
+}
+
+.arm.left {
+    left: 0;
+    transform: rotate(20deg);
+}
+
+.arm.right {
+    right: 0;
+    transform: rotate(-20deg);
+}
+
+/* Feet */
+
+.foot {
+    position: absolute;
+    top: 235px;
+    width: 48px;
+    height: 35px;
+    border-radius: 50%;
+    background: #6e5cae;
+    border: 5px solid #473a78;
+}
+
+.foot.left {
+    left: 35px;
+}
+
+.foot.right {
+    right: 35px;
+}
+
+/* Buttons */
+
+.controls {
+    text-align: center;
+    margin-top: 15px;
+}
+
+button {
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px;
+    margin: 5px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(80,50,100,0.2);
+}
+
+#startBtn {
+    background: linear-gradient(135deg,#ff78c8,#a879ff);
+    color: white;
+}
+
+#stopBtn {
+    background: white;
+    color: #7a3d8e;
+}
+
+#status {
+    text-align: center;
+    color: #694b78;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1 class="title">🤖💗 Baby Robot</h1>
+
+<p class="subtitle">
+    Touch START and watch me come to the center! ✨
+</p>
+
+<div class="stage">
+
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+    <div class="bubble b4"></div>
+
+    <div class="sparkle s1">✦</div>
+    <div class="sparkle s2">✧</div>
+    <div class="sparkle s3">✨</div>
+
+    <div class="center-mark"></div>
+
+    <div class="robot" id="robot">
+
+        <div class="antenna"></div>
+
+        <div class="ear left"></div>
+        <div class="ear right"></div>
+
+        <div class="head">
+
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+
+            <div class="blush left"></div>
+            <div class="blush right"></div>
+
+            <div class="mouth"></div>
+
+        </div>
+
+        <div class="arm left"></div>
+        <div class="arm right"></div>
+
+        <div class="body">
+            <div class="heart">💗</div>
+        </div>
+
+        <div class="foot left"></div>
+        <div class="foot right"></div>
+
+    </div>
+
+</div>
+
+<div class="controls">
+
+    <button id="startBtn" onclick="startRobot()">
+        ▶ START
+    </button>
+
+    <button onclick="stopRobot()">
+        ⏹ STOP
+    </button>
+
+</div>
+
+<div id="status">
+    Ready! Touch START 💕
+</div>
+
+<script>
+
+const robot = document.getElementById("robot");
+const statusBox = document.getElementById("status");
+const startBtn = document.getElementById("startBtn");
+
+let stopped = false;
+
+
+/* ANNOUNCEMENT */
+
+const announcement = `
+Hello guys!
+
+On October 5, we are conducting Nexora 2026,
+The Programmers Day.
+
+All staff and students are invited
+and requested to participate.
+
+There will be various active games,
+so everyone is encouraged to participate
+and make the event enjoyable.
+
+Meet you on Programmers Day!
+`;
+
+
+/* SELECT GIRL / FEMALE-SOUNDING VOICE */
+
+function getGirlVoice() {
+
+    const voices = speechSynthesis.getVoices();
+
+    const preferredVoice = voices.find(voice =>
+        /female|girl|zira|samantha|aria|jenny|susan|hazel|sara|google uk english female/i
+        .test(voice.name)
+    );
+
+    if (preferredVoice) {
+        return preferredVoice;
+    }
+
+    const indianVoice = voices.find(voice =>
+        /en-IN/i.test(voice.lang)
+    );
+
+    if (indianVoice) {
+        return indianVoice;
+    }
+
+    const englishVoice = voices.find(voice =>
+        /^en/i.test(voice.lang)
+    );
+
+    return englishVoice || voices[0];
+
+}
+
+
+/* BABY GIRL-LIKE VOICE */
+function say(text) {
+
+    return new Promise(resolve => {
+
+        if (stopped) {
+            resolve();
+            return;
+        }
+
+        speechSynthesis.cancel();
+
+        const voice = getGirlVoice();
+
+        const utterance =
+            new SpeechSynthesisUtterance(text);
+
+        if (voice) {
+            utterance.voice = voice;
+            utterance.lang = voice.lang;
+        }
+
+        /* Small child / cute baby voice */
+        utterance.rate = 0.9;
+        utterance.pitch = 1500000;
+        utterance.volume = 1;
+
+        utterance.onend = resolve;
+        utterance.onerror = resolve;
+
+        speechSynthesis.speak(utterance);
+
+    });
+
+}
+
+
+/* START ROBOT */
+
+async function startRobot() {
+
+    stopped = false;
+
+    speechSynthesis.cancel();
+
+    startBtn.disabled = true;
+
+    statusBox.textContent =
+        "👶 Baby robot is running to the center...";
+
+    robot.classList.remove("run");
+
+    /*
+    Restart animation
+    */
+
+    void robot.offsetWidth;
+
+    robot.classList.add("run");
+
+
+    /*
+    Robot running time
+    */
+
+    await new Promise(resolve =>
+        setTimeout(resolve, 2700)
+    );
+
+
+    robot.classList.remove("run");
+
+
+    if (stopped) {
+
+        resetButton();
+
+        return;
+
+    }
+
+
+    statusBox.textContent =
+        "💗 Baby robot reached the center!";
+
+
+    /*
+    Small pause before speaking
+    */
+
+    await new Promise(resolve =>
+        setTimeout(resolve, 600)
+    );
+
+
+    if (stopped) {
+
+        resetButton();
+
+        return;
+
+    }
+
+
+    statusBox.textContent =
+        "👧💗 Baby robot is speaking...";
+
+
+    /*
+    Speak the announcement
+    */
+
+    await say(announcement);
+
+
+    if (!stopped) {
+
+        statusBox.textContent =
+            "🎉 Baby robot finished the announcement!";
+
+    }
+
+
+    resetButton();
+
+}
+
+
+/* STOP */
+
+function stopRobot() {
+
+    stopped = true;
+
+    speechSynthesis.cancel();
+
+    robot.classList.remove("run");
+
+    robot.style.transform =
+        "translateX(calc(-50% - 43vw))";
+
+    statusBox.textContent =
+        "⏹ Robot stopped. Ready again!";
+
+    resetButton();
+
+}
+
+
+/* ENABLE START BUTTON */
+
+function resetButton() {
+
+    startBtn.disabled = false;
+
+}
+
+
+/*
+Browser loads available voices
+*/
+
+speechSynthesis.onvoiceschanged =
+    function() {
+
+        speechSynthesis.getVoices();
+
+    };
+
+</script>
+
+</body>
+</html>
